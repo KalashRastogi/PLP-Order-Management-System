@@ -1,0 +1,23 @@
+<template>
+    <lightning-card title="Order Capture Screen" icon-name="standard:product_item">
+        <lightning-layout vertical-align="center">
+            <lightning-layout-item padding="around-small">
+                <lightning-input label="Find Products" value={searchKey} onchange={handleChange}>
+                </lightning-input>
+                <lightning-button variant="brand" label="Clear" onclick={handleClear} class="slds-m-left_x-small"></lightning-button>
+            </lightning-layout-item>
+        </lightning-layout>
+        <lightning-layout vertical-align="center">
+                <div>
+                    <lightning-datatable
+                            key-field="Id"
+                            data={products}
+                            columns={columns}
+                            onsave={handleSave}
+                            hide-checkbox-column
+                            draft-values={draftValues}>
+                    </lightning-datatable>
+                </div> 
+        </lightning-layout>
+    </lightning-card>
+</template>

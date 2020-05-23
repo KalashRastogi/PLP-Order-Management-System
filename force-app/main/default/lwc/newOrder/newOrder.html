@@ -1,0 +1,23 @@
+<template>
+        <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open slds-modal_small" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">New Order</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    <lightning-record-edit-form object-api-name="Order" id="createOrderForm">
+                        <lightning-messages></lightning-messages>
+                        <lightning-input-field field-name="AccountId"></lightning-input-field>
+                        <lightning-input-field field-name="EffectiveDate"></lightning-input-field>
+                        <lightning-input-field field-name="ContractId"></lightning-input-field>
+                        <lightning-input-field field-name="Status"></lightning-input-field>
+                        <lightning-button type="submit" name="submit" label="Create Order"></lightning-button>
+                    </lightning-record-edit-form>
+                </div>
+                <footer class="slds-modal__footer">
+                    <lightning-button variant="neutral" label="Cancel" onclick={goBack}></lightning-button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+</template>

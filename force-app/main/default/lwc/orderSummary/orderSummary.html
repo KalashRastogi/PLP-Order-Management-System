@@ -1,0 +1,144 @@
+<template>
+  <div class="slds-grid slds-wrap">
+    <template for:each={Orders} for:item="order" for:index="i">
+      <div class="slds-col slds-size_1-of-1 slds-m-bottom_large" key={order.OrderNumber}>
+        <lightning-card key={order.OrderNumber} class="slds-p-left_medium">
+          <article class="slds-card slds-m-bottom_large">
+            <div class="slds-card__header slds-grid">
+              <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                <div class="slds-media__figure">
+                  <span class="slds-icon_container slds-icon-standard-account" title="account">
+                    <svg class="slds-icon slds-icon_small" aria-hidden="true">
+                      <use xlink:href="/assets/icons/standard-sprite/svg/symbols.svg#account"></use>
+                    </svg>
+                  </span>
+                </div>
+                <div class="slds-media__body">
+                  <h2 class="slds-card__header-title">
+                    <a href="javascript:void(0);" class="slds-card__header-link slds-truncate" title="Accounts">
+                      <span>{order.OrderNumber}</span>
+                    </a>
+                  </h2>
+                </div>
+              </header>
+            </div>
+            <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+              <tbody>
+                <tr class="slds-hint-parent">
+                  <td>
+                    <div class="slds-truncate">
+                      <strong>Amount: </strong>${order.TotalAmount}
+                    </div>
+                  </td>
+                  <td>
+                    <div class="slds-truncate">
+                      <strong>Total Quantity: </strong>{order.TotalQuantity}
+                    </div>
+                  </td>
+                  <td>
+                    <div class="slds-truncate">
+                      <span class="slds-m-around_x-large">
+                        <lightning-button variant="success" label="Confirm Order" value={i} onclick={handleConfirm}
+                          class="slds-m-left_x-small"></lightning-button>
+                      </span>
+                      <span class="slds-m-around_x-large">
+                        <lightning-button variant="destructive" label="Cancel Order" value={i} onclick={handleCancel}
+                          class="slds-m-left_x-small"></lightning-button>
+                      </span>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </article>
+          <article class="slds-card">
+            <div class="slds-card__header slds-grid">
+              <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                <div class="slds-media__body">
+                  <h2 class="slds-card__header-title" style="color: black; font-weight: bold;">
+                    Products
+                  </h2>
+                </div>
+              </header>
+            </div>
+          </article>
+
+          <lightning-layout multiple-rows="true" pull-to-boundary="small">
+            <template for:each={order.OrderItemDetails} for:item="item" for:index="j">
+              <lightning-layout-item key={item.productCode} size="3" class="slds-p-around_x-small">
+                <lightning-card title={item.Name} class="bear-tile">
+                  <div class="slds-p-horizontal_small">
+                    <div class="slds-media">
+                      <div class="slds-media__body">
+                        <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+                          <tbody>
+                            <tr class="slds-hint-parent">
+                              <td>
+                                <strong>Product Code: </strong>
+                              </td>
+                              <td>
+                                <div class="slds-truncate">
+                                  {item.ProductCode}
+                                </div>
+                              </td>
+                            </tr>
+                            <tr class="slds-hint-parent">
+                              <td>
+                                <strong>Brand: </strong>
+                              </td>
+                              <td>
+                                <div class="slds-truncate">{item.Brand__c}</div>
+                              </td>
+                            </tr>
+                            <tr class="slds-hint-parent">
+                              <td>
+                                <strong>Stock Quantity: </strong>
+                              </td>
+                              <td>
+                                <div class="slds-truncate">
+                                  {item.Stock_Quantity__c}
+                                </div>
+                              </td>
+                            </tr>
+                            <tr class="slds-hint-parent">
+                              <td>
+                                <strong>Quantity: </strong>
+                              </td>
+                              <td>
+                                <div class="slds-truncate">{item.Quantity}</div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                        <br />
+                        <br />
+                        <span class="slds-m-around_x-large">
+                          <lightning-button variant="brand" label="Update Item" title="Successful action"
+                            onclick={handleUpdate} data-i={i} data-j={j} class="slds-m-left_x-small"></lightning-button>
+                        </span>
+                        <template if:true={item.showButton}>
+                          <lightning-input type="number" name="quantity" label="Enter Quantity"
+                            onchange={onChangeQuantity}></lightning-input>
+                          <lightning-button class="slds-m-horizontal_small" variant="brand" label="Save"
+                            onclick={saveClicked} data-i={i} data-j={j}></lightning-button>
+                          <lightning-button class="slds-m-horizontal_small" variant="destructive" label="Cancel"
+                            data-i={i} data-j={j} onclick={cancelClicked}></lightning-button>
+                        </template>
+                        <br />
+                        <br />
+                        <span class="slds-m-around_x-large">
+                          <lightning-button variant="neutral" label="Delete Item" title="Successful action" data-i={i}
+                            data-j={j} onclick={handleDelete} class="slds-m-left_x-small"></lightning-button>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </lightning-card>
+              </lightning-layout-item>
+            </template>
+          </lightning-layout>
+        </lightning-card>
+      </div>
+    </template>
+  </div>
+</template>
